@@ -14,7 +14,7 @@ function App() {
     fecthMessage();
   }, []);
 
-  return <p>{message}</p>;
+  return <p className="p-6 text-3xl">{message}</p>;
 }
 
 export default App;
