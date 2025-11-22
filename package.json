@@ -4,13 +4,14 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "my-app": ".",
+    "vite": "^7.2.4"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "workspaces": [
-    "packages/client",
-    "packages/server"
+    "packages/*"
   ]
 }
