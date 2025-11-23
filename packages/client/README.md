@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# Frontend Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the chatbot application. It's a React application built with Vite.
 
-Currently, two official plugins are available:
+## Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://react.dev/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- [Bun](https://bun.sh/docs/installation) installed on your machine.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default defineConfig([
-   globalIgnores(['dist']),
-   {
-      files: ['**/*.{ts,tsx}'],
-      extends: [
-         // Other configs...
+1.  Navigate to the `packages/client` directory:
+    ```bash
+    cd packages/client
+    ```
+2.  Install the dependencies:
+    ```bash
+    bun install
+    ```
 
-         // Remove tseslint.configs.recommended and replace with this
-         tseslint.configs.recommendedTypeChecked,
-         // Alternatively, use this for stricter rules
-         tseslint.configs.strictTypeChecked,
-         // Optionally, add this for stylistic rules
-         tseslint.configs.stylisticTypeChecked,
+### Running the Client
 
-         // Other configs...
-      ],
-      languageOptions: {
-         parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-         },
-         // other options...
-      },
-   },
-]);
-```
+-   **Development:**
+    ```bash
+    bun run dev
+    ```
+    This will start the development server.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-   **Production Build:**
+    ```bash
+    bun run build
+    ```
+    This will build the application for production.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default defineConfig([
-   globalIgnores(['dist']),
-   {
-      files: ['**/*.{ts,tsx}'],
-      extends: [
-         // Other configs...
-         // Enable lint rules for React
-         reactX.configs['recommended-typescript'],
-         // Enable lint rules for React DOM
-         reactDom.configs.recommended,
-      ],
-      languageOptions: {
-         parserOptions: {
-            project: ['./tsconfig.node.json', './tsconfig.app.json'],
-            tsconfigRootDir: import.meta.dirname,
-         },
-         // other options...
-      },
-   },
-]);
-```
+The client will be running on `http://localhost:5173`.
