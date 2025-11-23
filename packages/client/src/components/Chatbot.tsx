@@ -53,14 +53,26 @@ const Chatbot = () => {
       }
    };
 
+   const onCopyText = (e: React.ClipboardEvent<HTMLParagraphElement>): void => {
+      // get the selected text
+      const selectedText = window.getSelection()?.toString().trim();
+
+      if (selectedText) {
+         e.preventDefault();
+         e.clipboardData.setData('text/plain', selectedText);
+      }
+   };
+
    useEffect(() => {
       formRef.current?.scrollIntoView({ behavior: 'smooth' });
    }, [messages]);
+
    return (
       <div>
          <div className="flex flex-col gap-3 mb-3">
             {messages.map((message: Message, idx: number) => (
                <p
+                  onCopy={onCopyText}
                   className={`px-3 py-1 rounded-xl ${message.role === 'user' ? 'bg-black text-white self-end' : 'bg-gray-100 text-black self-start'}`}
                   key={idx}
                >
