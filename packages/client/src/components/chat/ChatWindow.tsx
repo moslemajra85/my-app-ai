@@ -23,7 +23,8 @@ const ChatWindow = ({ onSubmit }: Props) => {
    const onkeydown = (e: React.KeyboardEvent<HTMLFormElement>) => {
       if (e.key === 'Enter' && !e.shiftKey) {
          e.preventDefault();
-         handleSubmit(onSubmit)();
+         //handleSubmit(onSubmit)();
+         submit();
       }
    };
    return (

@@ -7,6 +7,14 @@ export type GeminiMessage = {
 export const history: GeminiMessage[] = [];
 
 export const conversationRespository = {
+   addSystemInstructionsOnce(instructions: string) {
+      if (history.length === 0) {
+         history.push({
+            role: 'user', // Gemini uses only user/model roles
+            parts: [{ text: instructions }],
+         });
+      }
+   },
    addUserPromptToHistoy(prompt: string) {
       history.push({ role: 'user', parts: [{ text: prompt }] });
    },
