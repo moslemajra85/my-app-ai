@@ -5,8 +5,13 @@ import { useState } from 'react';
 import type { Message } from './ChatMessage';
 import ChatMessage from './ChatMessage';
 import type { ChatFormData } from './ChatWindow';
- 
+import popSound from '@/assets/sounds/pop.mp3';
+import notificationSound from '@/assets/sounds/notification.mp3';
 
+const popAudio = new Audio(popSound);
+popAudio.volume = 0.2;
+const notificationAudio = new Audio(notificationSound);
+notificationAudio.volume = 0.2;
 
 type ChatResponse = {
    message: string;
@@ -22,7 +27,8 @@ const Chatbot = () => {
          setMessages((prev) => [...prev, { content: prompt, role: 'user' }]);
          setBotTyping(true);
          setError('');
-       
+         popAudio.play();
+
          const { data } = await axios.post<ChatResponse>('/api/chat', {
             prompt,
          });
@@ -34,6 +40,7 @@ const Chatbot = () => {
                role: 'bot',
             },
          ]);
+         notificationAudio.play();
       } catch (error) {
          console.log(error);
 
@@ -43,8 +50,6 @@ const Chatbot = () => {
       }
    };
 
- 
-
    return (
       <div className="flex flex-col h-full">
          <div className="flex flex-col flex-1 gap-3 mb-3 overflow-y-auto">
@@ -52,7 +57,7 @@ const Chatbot = () => {
             {botTyping && <LoadingIndicator />}
             {error && <p className="text-red-500">{error}</p>}
          </div>
-         <ChatWindow  onSubmit={onSubmit}/>
+         <ChatWindow onSubmit={onSubmit} />
       </div>
    );
 };
