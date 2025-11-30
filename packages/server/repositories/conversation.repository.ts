@@ -6,7 +6,7 @@ export type GeminiMessage = {
 // Implementation Details
 export const history: GeminiMessage[] = [];
 
-export const conversationRespository = {
+export const GeminiConversationRespository = {
    addSystemInstructionsOnce(instructions: string) {
       if (history.length === 0) {
          history.push({

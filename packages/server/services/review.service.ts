@@ -1,10 +1,7 @@
 import type { Review } from '@prisma/client';
 import { reviewRepository } from '../repositories/review.repository';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import type { GenerateContentResult } from '@google/generative-ai';
-import { chatService } from './chat.service';
+import { chatService } from './gemini.chat.service';
 
-const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 export const reviewService = {
    getReviews: async (productId: number) => {

@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
-import { chatService } from '../services/chat.service';
+import { chatService } from '../services/gemini.chat.service';
 import z, { string } from 'zod';
-
 
 // implementation details
 const MessageSchema = z.object({
