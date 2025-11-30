@@ -1,7 +1,7 @@
 import type { Review } from '@prisma/client';
 import { reviewRepository } from '../repositories/review.repository';
 import { chatService } from './gemini.chat.service';
-
+import template from '../prompts/summarize-prompt.txt';
 
 export const reviewService = {
    getReviews: async (productId: number) => {
@@ -19,9 +19,7 @@ export const reviewService = {
          .join('\n\n');
 
       // send the reviews to LLM
-      const prompts = `Summarize the following reviews in 100 words or less: ${joinedReviews}
-   `;
-
+      const prompts = template.replace('{{reviews}}', joinedReviews);
       const result = await chatService.sendMessage(prompts);
 
       return result.response.text();
