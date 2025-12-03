@@ -9,6 +9,13 @@ export const reviewService = {
    },
 
    summarizeReview: async (productId: number): Promise<string> => {
+      // check if there is already a summary and it is not expired
+      const existingSummary =
+         await reviewRepository.getReviewSummary(productId);
+
+      if (existingSummary) {
+         return existingSummary;
+      }
       // get the last 10 reviews
       const reviews = await reviewRepository.getReviews(productId, 10);
 
@@ -21,7 +28,11 @@ export const reviewService = {
       // send the reviews to LLM
       const prompts = template.replace('{{reviews}}', joinedReviews);
       const result = await chatService.sendMessage(prompts);
+      const summary = result.response.text();
 
-      return result.response.text();
+      // store the summary in the database
+      await reviewRepository.storeReviewSummary(productId, summary);
+
+      return summary;
    },
 };
