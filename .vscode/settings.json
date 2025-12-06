@@ -13,7 +13,8 @@
          "driver": "MySQL",
          "name": "summarizer",
          "database": "db_summarizer",
-         "username": "root"
+         "username": "root",
+         "password": "Newmoslem2020"
       }
    ]
 }
