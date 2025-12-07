@@ -1,8 +1,10 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GeminiConversationRespository } from '../repositories/conversation.repository';
 import type { GeminiMessage } from '../repositories/conversation.repository';
-
+import { InferenceClient } from '@huggingface/inference';
+import summaryPrompt from '../prompts/summary-prompt.txt';
 const genAi = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+const inferenceClient = new InferenceClient(process.env.HF_TOKEN);
 
 type GenerateTextOptions = {
    prompt: string;
@@ -35,5 +37,32 @@ export const GeminiClient = {
       GeminiConversationRespository.addResponseToHistory(text);
 
       return result;
+   },
+};
+
+export const HFInference = {
+   // summarize: async (text: string) => {
+   //    const output = await inferenceClient.summarization({
+   //       model: 'facebook/bart-large-cnn',
+   //       inputs: text,
+   //       provider: 'hf-inference',
+   //    });
+
+   //    return output.summary_text
+   // },
+
+   summarizeReviews: async (reviews: string) => {
+      const chatCompletion = await inferenceClient.chatCompletion({
+         model: 'meta-llama/Llama-3.1-8B-Instruct:novita',
+         messages: [
+            { role: 'system', content: summaryPrompt },
+            {
+               role: 'user',
+               content: reviews,
+            },
+         ],
+      });
+
+      return chatCompletion.choices[0]?.message.content || '';
    },
 };

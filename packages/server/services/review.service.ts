@@ -2,6 +2,7 @@ import type { Review } from '@prisma/client';
 import { reviewRepository } from '../repositories/review.repository';
 import { chatService } from './gemini.chat.service';
 import template from '../prompts/summarize-prompt.txt';
+import { join } from '@prisma/client/runtime/client';
 
 export const reviewService = {
    getReviews: async (productId: number) => {
@@ -27,8 +28,8 @@ export const reviewService = {
 
       // send the reviews to LLM
       const prompts = template.replace('{{reviews}}', joinedReviews);
-      const result = await chatService.sendMessage(prompts);
-      const summary = result.response.text();
+      const summary = await chatService.sendMessage(prompts);
+      //const summary = result.response.text();
 
       // store the summary in the database
       await reviewRepository.storeReviewSummary(productId, summary);

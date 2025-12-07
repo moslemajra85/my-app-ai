@@ -17,6 +17,7 @@
    },
    "dependencies": {
       "@google/generative-ai": "^0.24.1",
+      "@huggingface/inference": "^4.13.4",
       "@prisma/adapter-mariadb": "^7.0.1",
       "@prisma/client": "^7.0.1",
       "dayjs": "^1.11.19",
