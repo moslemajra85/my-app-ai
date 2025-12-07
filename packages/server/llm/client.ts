@@ -1,3 +1,4 @@
+import { Ollama } from 'ollama';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { GeminiConversationRespository } from '../repositories/conversation.repository';
 import type { GeminiMessage } from '../repositories/conversation.repository';
@@ -40,6 +41,8 @@ export const GeminiClient = {
    },
 };
 
+const OllamaClient = new Ollama();
+
 export const HFInference = {
    // summarize: async (text: string) => {
    //    const output = await inferenceClient.summarization({
@@ -51,9 +54,24 @@ export const HFInference = {
    //    return output.summary_text
    // },
 
+   // summarizeReviews: async (reviews: string) => {
+   //    const chatCompletion = await inferenceClient.chatCompletion({
+   //       model: 'meta-llama/Llama-3.1-8B-Instruct:novita',
+   //       messages: [
+   //          { role: 'system', content: summaryPrompt },
+   //          {
+   //             role: 'user',
+   //             content: reviews,
+   //          },
+   //       ],
+   //    });
+
+   //    return chatCompletion.choices[0]?.message.content || '';
+   // },
+
    summarizeReviews: async (reviews: string) => {
-      const chatCompletion = await inferenceClient.chatCompletion({
-         model: 'meta-llama/Llama-3.1-8B-Instruct:novita',
+      const response = await OllamaClient.chat({
+         model: 'tinyllama',
          messages: [
             { role: 'system', content: summaryPrompt },
             {
@@ -63,6 +81,6 @@ export const HFInference = {
          ],
       });
 
-      return chatCompletion.choices[0]?.message.content || '';
+      return response.message.content;
    },
 };
